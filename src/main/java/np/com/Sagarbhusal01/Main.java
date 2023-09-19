@@ -9,6 +9,18 @@ import np.com.Sagarbhusal01.Utility.Utils;
 
 public class Main {
 
+    public  String getMasterPassword() {
+        return MasterPassword;
+    }
+
+    public void setMasterPassword(String masterPassword) {
+        MasterPassword = masterPassword;
+    }
+
+    private static String MasterPassword="";
+
+
+
     public static void main(String[] args) {
 
      Utils console=new Utils();
@@ -20,8 +32,9 @@ public class Main {
      setup.IsFirstTime();
 
 
+     boolean Authenticated=sql.CheckPassword();
 
-     while (sql.CheckPassword())
+     while (Authenticated)
      {
          new Command(console.Input());
      }

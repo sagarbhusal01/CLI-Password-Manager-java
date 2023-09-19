@@ -1,7 +1,8 @@
 package np.com.Sagarbhusal01.SQLHandler;
 
-import np.com.Sagarbhusal01.CommandHandler.Command;
+
 import np.com.Sagarbhusal01.Drawing.Draw;
+import np.com.Sagarbhusal01.Main;
 import np.com.Sagarbhusal01.Security.Security;
 import np.com.Sagarbhusal01.Setup.Setup;
 import np.com.Sagarbhusal01.Utility.Config;
@@ -32,7 +33,7 @@ Utils console=new Utils();
 
 
 
-    public Connection getConnection()
+    protected Connection getConnection()
     {
         YAML yaml=new YAML();
         yaml.setMode("normal");
@@ -64,7 +65,7 @@ Utils console=new Utils();
 
 
 
-    public ResultSet SQLfetchQuery(String Query)
+    public ResultSet SQLFetchQuery(String Query)
     {
         try {
              return getConnection().prepareStatement(Query).executeQuery();
@@ -72,47 +73,50 @@ Utils console=new Utils();
 
         // Catch block to handle exception
         catch (SQLException e) {
-            System.out.println("Error occurred while fetching the data "+e.toString());
+            System.out.println("Error occurred while fetching the data "+e);
             new Draw().Separator();
             return null;
         }
     }
 
 
-public boolean CheckPassword()
-{
-    String MasterPassword=console.Input("Master Password");
-    if(Objects.equals(MasterPassword,"reconfigure sql"))
+
+
+    public boolean CheckPassword()
     {
-        new Setup().RunSetup();
-    }
-
-    String HashedMasterPassword="";
-    String Name="";
-
-
-    String fetchPasswordQuery="SELECT * FROM`passmancli`.`details` WHERE ID=(SELECT MAX(ID) FROM `passmancli`.`details`);";
-    ResultSet rs=SQLfetchQuery(fetchPasswordQuery);
-
-
-    while(true)
-    {
-        try {
-            if (!rs.next()) break;
-            HashedMasterPassword=rs.getString("MasterPassword");
-            Name=rs.getString("Name");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        String MasterPassword=console.Input("Master Password");
+        if(Objects.equals(MasterPassword,"reconfigure sql"))
+        {
+            new Setup().RunSetup();
         }
-    }
+
+        String HashedMasterPassword="";
+        String Name="";
+
+
+        String fetchPasswordQuery="SELECT * FROM`passmancli`.`details` WHERE ID=(SELECT MAX(ID) FROM `passmancli`.`details`);";
+        ResultSet rs= SQLFetchQuery(fetchPasswordQuery);
+
+
+        while(true)
+        {
+            try {
+                if (!rs.next()) break;
+                HashedMasterPassword=rs.getString("MasterPassword");
+                Name=rs.getString("Name");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
 
         if(Objects.equals(HashedMasterPassword, new Security().Hashing(MasterPassword)))
         {
+           new Main().setMasterPassword(MasterPassword);
             new Draw().Separator();
             System.out.println("Welcome "+Name+" !!");
             new Draw().Separator();
-          return true;
+            return true;
         }
         else {
             console.log("Your Password is incorrect!! try again after restarting the project!! ");
@@ -120,7 +124,7 @@ public boolean CheckPassword()
             return false;
         }
 
-}
+    }
 
 
 

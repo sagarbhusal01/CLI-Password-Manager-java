@@ -59,7 +59,7 @@ public class Setup {
      String CreateDetailsTable="CREATE TABLE `passmancli`.`details` (`ID` INT NOT NULL AUTO_INCREMENT, `Name` VARCHAR(50) NOT NULL , `MasterPassword` VARCHAR(300) NOT NULL , PRIMARY KEY (`ID`));";
      String AddUserNameAndPassword = String.format("INSERT INTO `passmancli`.`details`(Name,MasterPassword) VALUES('%s','%s');",Name,new Security().Hashing(MasterPassword));
 
-     String CreatePassmanTable="CREATE TABLE `passmancli`.`passman` (`AppName` VARCHAR(50) NOT NULL , `Password` VARCHAR(300) NOT NULL , `DateModified` TIMESTAMP NOT NULL , `ID` INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (`ID`(4)));";
+     String CreatePassmanTable="CREATE TABLE `passmancli`.`passman` (`AppName` VARCHAR(300) NOT NULL , `Password` VARCHAR(300) NOT NULL , `DateModified` TIMESTAMP NOT NULL , `ID` INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (`ID`(4)));";
 
         new Draw().Separator();
         new SQL().CreateDatabase();

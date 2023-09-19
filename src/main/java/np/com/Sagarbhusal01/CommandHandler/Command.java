@@ -9,7 +9,7 @@ public class Command {
             case "reconfig sql"->new Setup().RunSetup();
             case "-help" -> new Help();
             case "exit"->System.exit(0);
-
+            case "add password"->new AddPassword();
 
             default -> {
                 System.out.println("Your Input is invalid!! Here is the list of all commands available in Passman");

@@ -1,6 +1,7 @@
 package np.com.Sagarbhusal01.Security;
 
 import np.com.Sagarbhusal01.Drawing.Draw;
+import np.com.Sagarbhusal01.Main;
 import np.com.Sagarbhusal01.Utility.Config;
 
 import javax.crypto.Cipher;
@@ -42,7 +43,7 @@ Config config=new Config();
 
 
 
-    String MasterPassword= config.getMasterPassword();
+    String MasterPassword= new Main().getMasterPassword();
 
 
     String SALT = "%30%20%10%0";

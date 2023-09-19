@@ -8,10 +8,4 @@ public class Config {
         return "ENV.yaml";
     }
 
-    public String getMasterPassword()
-    {
-        return "MasterPassword";
-    }
-
-
 }
