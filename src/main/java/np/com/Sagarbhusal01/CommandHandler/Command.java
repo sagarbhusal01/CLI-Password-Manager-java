@@ -10,7 +10,7 @@ public class Command {
             case "-help" -> new Help();
             case "exit"->System.exit(0);
             case "add password"->new AddPassword();
-
+            case "see all password"->new SeeAllPassword();
             default -> {
                 System.out.println("Your Input is invalid!! Here is the list of all commands available in Passman");
                 new Help();
